@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jupyter Notebooks for Developer Advocacy and Documentation</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      img {
+        width: 100%;
+      }
+      
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Jupyter Notebooks for Developer Advocacy and Documentation
+
+---
+
+# Agenda
+
+1. Notebooks
+2. tmpnb - Temporary Notebook Server
+3. Thebe - An alternative Notebook UI
+4. Examples
+
+---
+
+# Notebooks
+
+The [Jupyter Notebook](https://jupyter.org/) is an open source web application that allows you to create and share documents that contain live code, equations, visualizations and explanatory text.
+
+ * Supports over 40 programming languages
+ * Code can produce rich output such as images, videos, LaTeX, and JavaScript
+ * Supports Spark, from Python, R and Scala
+
+---
+
+# Notebooks
+
+![tmpnb screenshot](screenshot.png)
+
+---
+
+# Notebooks - but...
+
+ * Notebooks are single user. Each user needs their own notebook server instance, usually run locally or behind a login (e.g. bluemix spark service, coursera).
+ * How do we use notebooks in documentation/tutorials/demos? Requirements: No installation, no login (still in "discover, try and buy")
+
+---
+
+# tmpnb - Temporary Notebook Server
+
+ * [tmpnb](https://github.com/jupyter/tmpnb) launches a docker container for each user that requests one.
+ * In practice, this gets used to provide temporary notebooks, demo the IPython notebook as part of a Nature article, or even provide Jupyter kernels for publications. 
+ * used it at user groups, meetups, and workshops to provide temporary access to a full system without any installation whatsoever. It also runs https://try.jupyter.org/.
+
+
+
+---
+
+# tmpnb - Temporary Notebook Server
+
+![tmpnb architecture](tmpnb.png)
+
+---
+
+# Thebe - An alternative Notebook UI
+
+[Thebe](https://github.com/oreillymedia/thebe) is a Javascript library that uses tmpnb as a backend and can be integrated into any website.
+
+```
+$(function(){
+    new Thebe({
+        selector:"code.python",
+        kernel_name: "python2",
+        url:"http://some.tmpnb.server.com:8000"
+    });
+});
+```
+
+```
+<code class="python">
+    import cloudant
+    ...
+</code>
+```
+
+---
+
+# Thebe - from notebook to markdown to thebe page
+
+You can create content as a notebook and publish as markdown with Thebe.
+
+ * Create a notebook locally
+ * Save as markdown
+ * Add Thebe
+ * Publish to HTML
+
+---
+
+# Questions?
+
+ * Deployment?
+ * ... ?
+
+---
+
+# Examples
+
+ * [test-python.html](Cloudant Python)
+ * [../_site/programming-guide.html](Spark)
+ * [test-javascript.html](Javascript)
+ * [test-bash.html](Cloudant curl/jq)
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

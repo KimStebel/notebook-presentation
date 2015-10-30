@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source secret
+
+rev=$(curl "https://${creds}@kimstebel.cloudant.com/uploads/notebooks" | jq -r '._rev')
+function upload {
+  curl "https://${creds}@kimstebel.cloudant.com/uploads/notebooks/$1" -X PUT --data-binary "@$1" -H "Content-Type: $2" -H "If-Match: $rev" | jq -r '._rev'
+}
+
+rev=$(upload 'index.html' 'text/html')
+rev=$(upload 'screenshot.png' 'image/png')
+rev=$(upload 'tmpnb.png' 'image/png')
+

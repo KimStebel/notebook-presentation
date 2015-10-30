@@ -1,0 +1,4 @@
+improve tmpnb graphic: ready section different color, remove ports
+
+
+
