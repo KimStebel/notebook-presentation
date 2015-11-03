@@ -64,10 +64,9 @@ The [Jupyter Notebook](https://jupyter.org/) is an open source web application t
 # tmpnb - Temporary Notebook Server
 
  * [tmpnb](https://github.com/jupyter/tmpnb) launches a docker container for each user that requests one.
- * In practice, this gets used to provide temporary notebooks, demo the IPython notebook as part of a Nature article, or even provide Jupyter kernels for publications. 
- * used it at user groups, meetups, and workshops to provide temporary access to a full system without any installation whatsoever. It also runs https://try.jupyter.org/.
-
-
+ * used to provide temporary notebooks
+ * used at user groups, meetups, and workshops to provide temporary access to a full system without any installation
+ * runs https://try.jupyter.org/.
 
 ---
 
@@ -79,17 +78,23 @@ The [Jupyter Notebook](https://jupyter.org/) is an open source web application t
 
 # Thebe - An alternative Notebook UI
 
-[Thebe](https://github.com/oreillymedia/thebe) is a Javascript library that uses tmpnb as a backend and can be integrated into any website.
+Tmpnb solves the multiuser problem, but it still has the same clunky UI.
+
+[Thebe](https://github.com/oreillymedia/thebe) is a Javascript library that uses tmpnb as a backend for code execution.
+
+It can be integrated into any website like this:
 
 ```
 $(function(){
     new Thebe({
-        selector:"code.python",
+        selector: "code.python",
         kernel_name: "python2",
         url:"http://some.tmpnb.server.com:8000"
     });
 });
 ```
+
+Any `<code>` tag will have a run button added.
 
 ```
 <code class="python">
@@ -100,30 +105,29 @@ $(function(){
 
 ---
 
-# Thebe - from notebook to markdown to thebe page
+# Thebe - workflow
 
 You can create content as a notebook and publish as markdown with Thebe.
 
- * Create a notebook locally
- * Save as markdown
+ * Create a notebook locally using the normal notebook UI
+ * Save the notebook as markdown
  * Add Thebe
- * Publish to HTML
-
----
-
-# Questions?
-
- * Deployment?
- * ... ?
+ * Publish as HTML
 
 ---
 
 # Examples
 
- * [test-python.html](Cloudant Python)
- * [../_site/programming-guide.html](Spark)
- * [test-javascript.html](Javascript)
- * [test-bash.html](Cloudant curl/jq)
+ * [Spark](http://185.73.38.147:8080/_site/programming-guide.html)
+ * [Cloudant and node.js](http://185.73.38.147:8080/thebe/test-javascript.html)
+ * [Cloudant, curl, jq](http://185.73.38.147:8080/thebe/test-bash.html)
+ * [Cloudant Python](http://185.73.38.147:8080/thebe/test-python.html)
+ 
+---
+
+# Questions?
+
+Hosting?
 
     </textarea>
     <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">

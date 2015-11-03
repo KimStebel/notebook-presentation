@@ -2,12 +2,19 @@
 
 source secret
 
-rev=$(curl "https://${creds}@kimstebel.cloudant.com/uploads/notebooks" | jq -r '._rev')
+base_url='kimstebel.cloudant.com/uploads/notebooks'
+export rev=$(curl -s "https://${creds}@${base_url}" | jq -r '._rev')
+rm logs
+touch logs
 function upload {
-  curl "https://${creds}@kimstebel.cloudant.com/uploads/notebooks/$1" -X PUT --data-binary "@$1" -H "Content-Type: $2" -H "If-Match: $rev" | jq -r '._rev'
+  curl -s "https://${creds}@${base_url}/$1" -X PUT --data-binary "@$1" -H "Content-Type: $2" -H "If-Match: $rev" | tee -a logs | jq -r '.rev'
 }
 
-rev=$(upload 'index.html' 'text/html')
-rev=$(upload 'screenshot.png' 'image/png')
-rev=$(upload 'tmpnb.png' 'image/png')
+export rev=$(upload 'index.html' 'text/html')
+export rev=$(upload 'screenshot.png' 'image/png')
+export rev=$(upload 'tmpnb.png' 'image/png')
+
+cat logs
+
+echo "https://${base_url}/index.html"
 
